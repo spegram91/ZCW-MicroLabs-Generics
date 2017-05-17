@@ -9,8 +9,27 @@ import java.util.Arrays;
  */
 public class ObjectStack<E> {
     private Object[] elements;
+    private int afterLast;
 
     public ObjectStack() {
+        elements = new Object[10];
+        afterLast = 0;
+    }
 
+    public void push (Object o){
+        if(afterLast == elements.length) {
+            elements = Arrays.copyOf(elements, elements.length);
+        }
+        elements[afterLast] = o;
+        afterLast++;
+    }
+
+    public Object pop (){
+        afterLast--;
+        return elements[afterLast];
+    }
+
+    public boolean isEmpty(){
+        return afterLast == 0;
     }
 }
