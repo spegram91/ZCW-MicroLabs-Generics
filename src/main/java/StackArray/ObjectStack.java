@@ -20,13 +20,11 @@ public class ObjectStack<E> {
         if(afterLast == elements.length) {
             elements = Arrays.copyOf(elements, elements.length);
         }
-        elements[afterLast] = o;
-        afterLast++;
+        elements[afterLast++] = o;
     }
 
     public Object pop (){
-        afterLast--;
-        return elements[afterLast];
+        return elements[--afterLast];
     }
 
     public boolean isEmpty(){
