@@ -1,5 +1,6 @@
 package Table;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -10,8 +11,41 @@ import java.util.ArrayList;
  * Void return on `remove`.
  */
 public class Table<K, V> {
-    private ArrayList entries;
+    private ArrayList<Entry<K, V>> entries;
 
     public Table() {
+        entries = new ArrayList<Entry<K, V>>();
+    }
+
+    public V get(K key) {
+        for (int i = 0; i < entries.size(); i++) {
+            if (entries.get(i).getKey().equals(key)) {
+                return entries.get(i).getValue();
+            }
+        }
+        return null;
+    }
+
+
+    public void put(K key, V value) {
+        boolean keyExists = false;
+        for (int i = 0; i < entries.size(); i++) {
+            if (entries.get(i).getKey().equals(key)) {
+                entries.set(i, new Entry<K, V>(key, value));
+                keyExists = true;
+            }
+        }
+        if (!keyExists) {
+            Entry<K, V> newEntry = new Entry<K, V>(key, value);
+            entries.add(newEntry);
+        }
+    }
+
+    public void remove(K key) {
+        for (int i = 0; i < entries.size(); i++) {
+            if (entries.get(i).getKey().equals(key)) {
+                entries.remove(i);
+            }
+        }
     }
 }

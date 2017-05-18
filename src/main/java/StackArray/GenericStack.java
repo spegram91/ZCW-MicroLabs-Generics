@@ -11,14 +11,15 @@ public class GenericStack<E> {
     private E[] elements;
     private int afterLast;
 
+    @SuppressWarnings("unchecked")
     public GenericStack() {
-        elements = (E[]) new Object[10];
+        elements = (E[]) new Object[0];
         afterLast = 0;
     }
 
     public void push(E e) {
         if (afterLast == elements.length) {
-            elements = Arrays.copyOf(elements, elements.length + 10);
+            elements = Arrays.copyOf(elements, afterLast);
         }
         elements[afterLast] = e;
         afterLast++;
@@ -26,7 +27,9 @@ public class GenericStack<E> {
 
     public E pop(){
         afterLast--;
-        return elements[afterLast];
+        E e = elements[afterLast];
+        elements = Arrays.copyOfRange(elements, 0, afterLast);
+        return e;
     }
 
     public boolean isEmpty(){
